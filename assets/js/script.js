@@ -1,7 +1,7 @@
 //------------------Pseudo Code-----------------------
 
-// Using day.js add the current day(format: Day, Day of Month, Month) at the top under "A simple calendar app for scheduling your work day"
-// Use id - currentDay
+// !Using day.js add the current day(format: Day, Day of Month, Month) at the top under "A simple calendar app for scheduling your work day"
+// !Use id - currentDay
 
 //Present time blocks for standard business hours (9AM - 5PM) when the user scrolls down - need a function to render a table format (3 columns, 9 Rows) using the div.container
 
@@ -15,4 +15,21 @@
 
 //Persist events between refreshes of a page - need to load events from local storage
 
+$(document).ready(function () {
 
+// Selector to display today's date
+const currentDateEl = $("#currentDay");
+// declare object to store calendar events
+
+
+// initialize calendar
+function initCalendar() {
+    const today = dayjs(); // set today's date
+    currentDateEl.text(today.format('dddd, D MMMM YYYY'));
+};
+
+// When the page loads:
+initCalendar(); // set the current date
+
+
+});
