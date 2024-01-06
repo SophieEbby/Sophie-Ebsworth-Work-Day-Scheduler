@@ -13,7 +13,7 @@
 
 //!Save the event in local storage when the save button is clicked in that time block - event listener 
 
-//Persist events between refreshes of a page - need to load events from local storage
+//!Persist events between refreshes of a page - need to load events from local storage
 
 $(document).ready(function () {
 
@@ -54,7 +54,6 @@ $(document).ready(function () {
             // increment hour before creating next row
             rowHr = rowHr.add(1, "hour");
 
-
             // set calendar render time
             hourRendered = dayjs();
         };
@@ -67,7 +66,16 @@ $(document).ready(function () {
         renderCalendar(today, calEvents); //calls renderCalendar function
     };
 
+    // loads events from local storage
+    function loadCal() {
+        const storedCal = JSON.parse(localStorage.getItem("calEvents"));
+        if (storedCal) {
+            calEvents = storedCal;
+        };
+    };
+
     // When the page loads:
+    loadCal(); // load calendar events from local storage
     initCalendar(); // set the current date
 
     // store calendar events in local storage
