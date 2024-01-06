@@ -7,7 +7,7 @@
 
 //!Within the same function, need to colour code each time block based on past, present, and future when the time block is viewed - using the classes past, present and future.
 //!Past - Grey colour, Present - Red colour, Future - Green colour
-//Need to check the time constantly to see if the colour blocks need to change.
+//!Need to check the time constantly to see if the colour blocks need to change.
 
 //!Allow a user to enter an event when they click a time block
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     // initialize calendar
     function initCalendar() {
-        const today = dayjs(); // set today's date
+        const today = dayjs(); // set today's date using dayjs
         currentDateEl.text(today.format('dddd, D MMMM YYYY'));
         renderCalendar(today, calEvents); //calls renderCalendar function
     };
@@ -69,7 +69,7 @@ $(document).ready(function () {
     // loads events from local storage
     function loadCal() {
         const storedCal = JSON.parse(localStorage.getItem("calEvents"));
-        if (storedCal) {
+        if (storedCal) { //if there is stored data then put it in the calEvents
             calEvents = storedCal;
         };
     };
@@ -77,6 +77,16 @@ $(document).ready(function () {
     // When the page loads:
     loadCal(); // load calendar events from local storage
     initCalendar(); // set the current date
+    hourTracker(); // start tracking the hour block
+
+    // checks current time every minute to see if color blocks for past present future need to change
+    function hourTracker() {
+        const checkHourInterval = setInterval(function () {
+            if (dayjs().isAfter(hourRendered, "minute")) {
+                initCalendar(); // if it's the next hour, re-render the calendar to change the colors
+            }
+        }, 60000); //60000 = 60 seconds
+    };
 
     // store calendar events in local storage
     function storeCal() {
